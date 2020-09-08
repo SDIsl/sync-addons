@@ -258,9 +258,9 @@
         <field name="domain">[('model_id', '=', active_id)]</field>
         <field name="context">{'default_model_id': active_id}</field>
     </record>
-    <menuitem id="main_openapi_menu" name="OpenAPI" />
-    <menuitem id="openapi_menu" name="OpenAPI" parent="main_openapi_menu"
+    <menuitem id="main_openapi_menu" name="OpenAPI"
         web_icon="openapi,static/description/icon.png"/>
+    <menuitem id="openapi_menu" name="OpenAPI" parent="main_openapi_menu"/>
     <menuitem
         id="namespaces_menu"
         name="Intergrations"
