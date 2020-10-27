@@ -17,6 +17,8 @@ class Namespace(models.Model):
     _name = "openapi.namespace"
     _description = "Integration"
 
+    
+
     active = fields.Boolean("Active", default=True)
     name = fields.Char(
         "Name",
@@ -255,6 +257,8 @@ class Namespace(models.Model):
                 )
                 .create_date
             )
+
+   
 
     def _compute_log_count(self):
         self._cr.execute(
