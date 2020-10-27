@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <!-- <record id="view_managers_simple_form" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_managers_simple_form"></field>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='mobile']" position="after">
+                <field name="name"/>
+                <field name="is_same_user" invisible="1"/>
+                <field name="openapi_token" attrs="{'invisible': [('is_same_user', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record> -->
+    
     <record model="ir.ui.view" id="ir_exports_form_view">
         <field name="name">ir.exports.form</field>
         <field name="model">ir.exports</field>
@@ -217,11 +229,28 @@
                                 <tree>
                                     <field name="name" />
                                 </tree>
+                                <form>
+                                    <field name="name"/>
+                                    <field name="is_same_user" invisible="1"/>
+                                    <field name="openapi_token" attrs="{'invisible': [('is_same_user', '=', False)]}"/>
+                                </form>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+    <record id="view_users_manager_form" model="ir.ui.view">
+        <field name="name">openapi.namespace.managerview</field>
+        <field name="model">openapi.namespace</field>
+        <field name="inherit_id" ref="openapi.namespace_form_view"></field>
+        <field name="group_ids" eval="[(4, ref('openapi.group_manager'))]"></field>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//notebook/page/field[@name='user_ids']/form/field[@name='openapi_token']" position="attributes"> -->
+            <xpath expr="//field[@name='is_same_user']" position="after">
+                <field name="openapi_token" groups='openapi.group_manager' attrs="{'invisible': [('is_same_user', '=', True)]}"/>
+            </xpath>
         </field>
     </record>
     <record id='openapi_namespace_model_view_tree' model='ir.ui.view'>

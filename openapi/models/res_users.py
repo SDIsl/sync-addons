@@ -2,14 +2,20 @@
 # Copyright 2018 Rafis Bikbov <https://it-projects.info/team/bikbov>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import uuid
-
+import wdb
 from odoo import api, fields, models
+
 
 
 class ResUsers(models.Model):
     _inherit = "res.users"
 
     namespace_ids = fields.Many2many("openapi.namespace", string="Allowed Integrations")
+    is_same_user = fields.Boolean(
+        compute='is_the_same_user',
+        store=False,
+        string='Same User'
+    )
     openapi_token = fields.Char(
         "OpenAPI Token",
         default=lambda self: self._get_unique_openapi_token(),
@@ -29,6 +35,15 @@ class ResUsers(models.Model):
             openapi_token = str(uuid.uuid4())
         return openapi_token
 
+    def is_the_same_user(self):
+        for record in self:
+            record.is_same_user = self.id == self.env.uid
+
     @api.model
     def reset_all_openapi_tokens(self):
         self.search([]).reset_openapi_token()
+
+    
+
+    
+    

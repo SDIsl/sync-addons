@@ -6,6 +6,8 @@ from odoo import api, models
 class Base(models.AbstractModel):
     _inherit = "base"
 
+    
+
     @api.model
     def search_or_create(self, vals, active_test=True):
         domain = [(k, "=", v) for k, v in vals.items()]
@@ -15,3 +17,4 @@ class Base(models.AbstractModel):
             is_new = True
             records = self.create(vals)
         return (is_new, records.ids)
+
